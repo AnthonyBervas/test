@@ -242,6 +242,18 @@ The command has many options :
 Run BigMACS:
 ````````````
 
+You must run BigMACS like described by Patrick Kelly with the obtained fits file to have your magnitudes corrections.
+
+In many cases, I used the following command::
+   
+   python fit_locus.py -f fits_file -c describing_column_file -e 1 -b 5 -l
+   
+
+Filter the initial HDF5 file:
+`````````````````````````````
+
+
+   
 
 
 
