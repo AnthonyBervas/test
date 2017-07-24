@@ -221,9 +221,9 @@ The command has many options :
 
 - If you want to work with extinction corrected magnitudes (YOU MUST USE clusters_extinction.py ON YOUR HDF5 CATALOG BEFORE USING THIS OPTION)::
 
-   --extinction Output of clusters_extinction.py
+   --extinction data_ext.hdf5 (Output of clusters_extinction.py)
 
-- To select a specific column with your magnitudes in the HDF5 file::
+- To select a specific column which contains your magnitudes in the HDF5 file::
 
    --mag column (default='modelfit_CModel_Mag')
 
@@ -287,6 +287,13 @@ Example of correction text file:
 Then you must run the following command to apply the correction and estimate the photo-z::
 
    python clusters_zphot.py config.yaml data_filtered.hdf5 --zeropoints correction_file
+   
+If you work with extinction corrected magnitudes, use ``--extinction`` option. You can also use ``--dustmap`` ('sfd' by default).
+
+Photo-z plots
+-------------
+
+
    
 
 
