@@ -203,7 +203,7 @@ BigMACS for Clusters Package (https://github.com/nicolaschotard/Clusters) 2017
 Written by LSST group at LAPP.
 
 The initial program developed by Patrick Kelly was modified and adapted for Clusters package.
-The goal is to apply BigMACS calculated magnitudes corrections to catalogs used by the Clusters package.
+The goal is to apply BigMACS calculated magnitudes corrections to catalogs used by the Clusters package and estimate photo-z of galaxies.
 
 Usage
 -----
@@ -248,11 +248,45 @@ In many cases, I used the following command::
    
    python fit_locus.py -f fits_file -c describing_column_file -e 1 -b 5 -l
    
+You will have some control plots and a text file with calculated corrections for each filters.
+   
 
 Filter the initial HDF5 file:
 `````````````````````````````
 
+You must filter your HDF5 initial file to have only galaxies data::
 
+   python clusters_data.py config.yaml data.hdf5 --filter --output output_file_name
+   
+If you used magnitudes with extinction corrections before, use also the command::
+
+   python clusters_extinction.py config.yaml filtered_data.hdf5
+   
+   
+Apply BigMACS calculated magnitudes corrections:
+````````````````````````````````````````````````
+
+You must create a text file to apply the correction to your galaxies magnitudes.
+
+The first column contains the name of filters, the second column contains the corrections calculated by BigMACS and the third column contains the magnitude error for each filters.
+
+Example of correction text file:
+
+   +---+--------+---------+
+   | u |  0.0107|  0.0079 |
+   +---+--------+---------+
+   | g |  0.0229|  0.0016 |
+   +---+--------+---------+
+   | i |  0.0076|  0.0014 |
+   +---+--------+---------+
+   | z |  0.0449|  0.0023 |
+   +---+--------+---------+
+   | r |  0     |  0      |
+   +---+--------+---------+
+   
+Then you must run the following command to apply the correction and estimate the photo-z::
+
+   python clusters_zphot.py config.yaml data_filtered.hdf5 --zeropoints correction_file
    
 
 
