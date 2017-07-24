@@ -87,11 +87,11 @@ command line arguments
 
 Required Python packages:
 
-   - pylab
+- pylab
 
-   - scipy
+- scipy
 
-   - sqlcl.py copy included (queries SDSS database written by Tamas Budavari, JHU -- need version that searches at least DR8which is set by the astro_url and public_url variables)
+- sqlcl.py copy included (queries SDSS database written by Tamas Budavari, JHU -- need version that searches at least DR8which is set by the astro_url and public_url variables)
 
 =========================================================================
 
@@ -105,36 +105,33 @@ Quick Start:
 
 Ingredients:
 
-   1. FITS catalog with columns for stellar magnitudes and magnitude errors. Include columns with RA and DEC if interested in automatically matching against the SDSS or 2MASS catalogs. You will need to specify the names of the RA and DEC columns (e.g., -r X_WORLD -d Y_WORLD) on the command line.
+1. FITS catalog with columns for stellar magnitudes and magnitude errors. Include columns with RA and DEC if interested in automatically matching against the SDSS or 2MASS catalogs. You will need to specify the names of the RA and DEC columns (e.g., -r X_WORLD -d Y_WORLD) on the command line.
 
-   2. Need to find/make total transmission function for filters used in observations. FILTERS folder contains examples for several telescopes.
+2. Need to find/make total transmission function for filters used in observations. FILTERS folder contains examples for several telescopes.
 
-   3. Create a configuration file. Here you will specify the names of the magnitude and magnitude error columns in the FITS catalog. You will need to specify whether to HOLD or VARY the zeropoint for each filter. If you choose to HOLD the zeropoint for a filter, you will need to specify any zeropoint offset you would like to apply to the magnitudes for that filter during fit (generally 0 if the magnitudes are calibrated). At least one filter will need to have the zeropoint held fixed.
+3. Create a configuration file. Here you will specify the names of the magnitude and magnitude error columns in the FITS catalog. You will need to specify whether to HOLD or VARY the zeropoint for each filter. If you choose to HOLD the zeropoint for a filter, you will need to specify any zeropoint offset you would like to apply to the magnitudes for that filter during fit (generally 0 if the magnitudes are calibrated). At least one filter will need to have the zeropoint held fixed.
 
 Example:
 
-   1. CALIBRATE ONLY COLORS (no SDSS or 2MASS magnitudes)::
+1. CALIBRATE ONLY COLORS (no SDSS or 2MASS magnitudes)::
 
         python fit_locus.py --file ./EXAMPLES/MACS1423+24.stars.calibrated.cat --columns ./EXAMPLES/MACS1423+24.qc.columns --extension 1 --bootstrap 5 --l -s (run here from the installation directory)
 
-        This a catalog of Subaru SuprimeCam magnitudes where we hold the zeropoint of one of the bands constant. Here we include SDSS stars (only the faintest are not saturated) to
-        get an approximate absolute ZP. Colors should be calibrated with high accuracy.
+This a catalog of Subaru SuprimeCam magnitudes where we hold the zeropoint of one of the bands constant. Here we include SDSS stars (only the faintest are not saturated) to get an approximate absolute ZP. Colors should be calibrated with high accuracy.
 
-        extension is the number or name of the extension of the table with the necessary magnitudes in the FITS file
-        liveplot is responsible for whether
-        (type python fit_locus.py for other arguments)
+Extension is the number or name of the extension of the table with the necessary magnitudes in the FITS file liveplot is responsible for whether (type python fit_locus.py for other arguments)
 
-   2. SDSS UNIT TEST::
+2. SDSS UNIT TEST::
 
         python fit_locus.py --file ./EXAMPLES/MACS1423+24.stars.calibrated.cat --columns ./EXAMPLES/MACS1423+24.qc.columns --extension 1 --bootstrap 0 --l -s -u (run here from the installation directory)
 
-        This unit test makes a catalog of all SDSS stars in field (not only those matched against) and then holds the z-band zeropoint fixed.
+This unit test makes a catalog of all SDSS stars in field (not only those matched against) and then holds the z-band zeropoint fixed.
 
-   3. CALIBRATE ABSOLUTE ZP w/ 2MASS::
+3. CALIBRATE ABSOLUTE ZP w/ 2MASS::
 
         python fit_locus.py --file ./EXAMPLES/kpno.fits --columns ./EXAMPLES/kpno.columns --extension 1 --bootstrap 5 -l -r ALPHA_J2000_reg2_i -d DELTA_J2000_reg2_i -j
 
-        This is a catalog of Kitt Peak photometry. Here we add 2MASS photometry to calibrate these magnitudes. A much smaller catalog than the Subaru catalog.
+This is a catalog of Kitt Peak photometry. Here we add 2MASS photometry to calibrate these magnitudes. A much smaller catalog than the Subaru catalog.
 
 
 
@@ -142,29 +139,29 @@ Example:
 
 ESSENTIAL TIPS:
 
-   - Need to specify output directory (e.g., --output ~/) in order to save plots for fit
+- Need to specify output directory (e.g., --output ~/) in order to save plots for fit
 
-   - Set bad magnitudes equal to +-99 (flagged measurements, saturated stars etc.)
+- Set bad magnitudes equal to +-99 (flagged measurements, saturated stars etc.)
 
-   - Be wary at low Galatic latitude and high extinction, especially when using all available SDSS filters/magnitudes. Code uses extinction curve to estimate what the SDSS magnitudes would be _behind_ the dust -- that assumption may not be correct.
+- Be wary at low Galatic latitude and high extinction, especially when using all available SDSS filters/magnitudes. Code uses extinction curve to estimate what the SDSS magnitudes would be _behind_ the dust -- that assumption may not be correct.
 
-   - A kink in the _observed_ locus is important for accurate calibration.
+- A kink in the _observed_ locus is important for accurate calibration.
 
-   - Does not yet work for u-band calibration (ask Pat)
+- Does not yet work for u-band calibration (ask Pat)
 
-   - FILTER functions should not be in the optical
+- FILTER functions should not be in the optical
 
-   - Yields an AB calibration (not Vega)
+- Yields an AB calibration (not Vega)
 
-   - The 2MASS locus is not synthesized from the spectroscopic model. If you would like to match against 2MASS then the name of the filter transmission function needs to be J2MASS.res so that Big MACS can assign the correct locus.
+- The 2MASS locus is not synthesized from the spectroscopic model. If you would like to match against 2MASS then the name of the filter transmission function needs to be J2MASS.res so that Big MACS can assign the correct locus.
 
-   - Can only use 2MASS when there are enough 2MASS matches (problem is bright stars are saturated in science images)
+- Can only use 2MASS when there are enough 2MASS matches (problem is bright stars are saturated in science images)
 
-   - Make sure to exclude stars with saturated or non-linear measurements.
+- Make sure to exclude stars with saturated or non-linear measurements.
 
-   - The spectroscopic model for the locus is only trustworthy to approximately 10500 Angstroms (the red limit of the SDSS z' filter), so synthesized magnitudes from near-IR filter functions are not likely to be correct. Therefore, near-IR observations need to be calibrated separately, although some work is ongoing to extend to templates to redder wavelengths.
+- The spectroscopic model for the locus is only trustworthy to approximately 10500 Angstroms (the red limit of the SDSS z' filter), so synthesized magnitudes from near-IR filter functions are not likely to be correct. Therefore, near-IR observations need to be calibrated separately, although some work is ongoing to extend to templates to redder wavelengths.
 
-   - The magnitudes, if any, that you hold "FIXED" need to be corrected for MW reddening along the line of sight.
+- The magnitudes, if any, that you hold "FIXED" need to be corrected for MW reddening along the line of sight.
 
 =========================================================================
 
