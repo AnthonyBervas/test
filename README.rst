@@ -41,12 +41,14 @@ Simultaneously solves for all zeropoint simultaneously using new, simplified alg
 SDSS stellar locus is dereddened for Milky Way dust extinction
 Improved zeropoint accuracy
 
-.. image:: http://farm9.staticflickr.com/8283/7613582508_cbccece26e.jpg
-    :alt: Color calibration of photometry through nine Subaru SuprimeCam and CFHT MegaPrime filter bands of the RXJ1347-11 galaxy cluster field. We simultaneously vary eight zeropoints and hold one constant during the fit to maximize agreement between the instrumental stellar locus and the model stellar locus.
+.. figure:: http://farm9.staticflickr.com/8283/7613582508_cbccece26e.jpg
+    :figclass: align-center
+    Color calibration of photometry through nine Subaru SuprimeCam and CFHT MegaPrime filter bands of the RXJ1347-11 galaxy cluster field. We simultaneously vary eight zeropoints and hold one constant during the fit to maximize agreement between the instrumental stellar locus and the model stellar locus.
 
 
-.. image:: http://farm8.staticflickr.com/7275/7723411818_8340373f95.jpg
-    :alt: Photometric redshifts computed after calibration with Big MACS software.
+.. figure:: http://farm8.staticflickr.com/7275/7723411818_8340373f95.jpg
+    :figclass: align-center
+    Photometric redshifts computed after calibration with Big MACS software.
 
 =========================================================================
 
@@ -75,23 +77,22 @@ bash shell::
 
     PYTHONPATH=$BIGMACS:PYTHONPATH
     export PYTHONPATH
-
-=========================================================================
-
-Usage:
-
-Run "python fit_locus.py --help" to get list of possible
-command line arguments
-
-=========================================================================
-
+    
 Required Python packages:
-
+`````````````````````````
 - pylab
 
 - scipy
 
 - sqlcl.py copy included (queries SDSS database written by Tamas Budavari, JHU -- need version that searches at least DR8which is set by the astro_url and public_url variables)
+
+
+=========================================================================
+
+Usage:
+------
+Run "python fit_locus.py --help" to get list of possible
+command line arguments
 
 =========================================================================
 
@@ -102,7 +103,7 @@ We use the Munari SED to estimate extinction
 =========================================================================
 
 Quick Start:
-
+````````````
 Ingredients:
 
 1. FITS catalog with columns for stellar magnitudes and magnitude errors. Include columns with RA and DEC if interested in automatically matching against the SDSS or 2MASS catalogs. You will need to specify the names of the RA and DEC columns (e.g., -r X_WORLD -d Y_WORLD) on the command line.
