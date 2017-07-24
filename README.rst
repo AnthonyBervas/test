@@ -43,11 +43,14 @@ Improved zeropoint accuracy
 
 .. figure:: http://farm9.staticflickr.com/8283/7613582508_cbccece26e.jpg
     :figclass: align-center
-    Color calibration of photometry through nine Subaru SuprimeCam and CFHT MegaPrime filter bands of the RXJ1347-11 galaxy cluster field. We simultaneously vary eight zeropoints and hold one constant during the fit to maximize agreement between the instrumental stellar locus and the model stellar locus.
+    
+    Color calibration of photometry through nine Subaru SuprimeCam and CFHT MegaPrime filter bands of the RXJ1347-11 galaxy     cluster field. We simultaneously vary eight zeropoints and hold one constant during the fit to maximize agreement
+    between the instrumental stellar locus and the model stellar locus.
 
 
 .. figure:: http://farm8.staticflickr.com/7275/7723411818_8340373f95.jpg
     :figclass: align-center
+    
     Photometric redshifts computed after calibration with Big MACS software.
 
 =========================================================================
@@ -200,4 +203,47 @@ BigMACS for Clusters Package (https://github.com/nicolaschotard/Clusters) 2017
 Written by LSST group at LAPP.
 
 The initial program developed by Patrick Kelly was modified and adapted for Clusters package.
-The goal is to apply BigMACS calculated magnitudes corrections to catalogs used by the Clusters package
+The goal is to apply BigMACS calculated magnitudes corrections to catalogs used by the Clusters package.
+
+Usage
+-----
+
+Convert HDF5 file into fits file :
+``````````````````````````````````
+
+Transform your HDF5 catalog into fits file with stars magnitudes in each filters, errors on magnitudes and RA/DEC coords.
+
+To make the conversion, use the command::
+
+   python hdf5_to_fits_full.py data.hdf5 output_file_name
+   
+The command has many options :
+
+- If you want to work with extinction corrected magnitudes (YOU MUST USE clusters_extinction.py ON YOUR HDF5 CATALOG BEFORE USING THIS OPTION)::
+
+   --extinction Output of clusters_extinction.py
+
+- To select a specific column with your magnitudes in the HDF5 file::
+
+   --mag column (default='modelfit_CModel_Mag')
+
+- Make a magnitude cut (g-i > value)::
+
+   --cut value
+
+- Use a specific dust map::
+
+   --dustmap (default='sfd')
+
+- Select only stars of the selected patch::
+
+   --patch patch
+   
+Run BigMACS:
+````````````
+
+
+
+
+
+ 
