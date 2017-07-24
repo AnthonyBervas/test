@@ -293,7 +293,7 @@ If you work with extinction corrected magnitudes, use ``--extinction`` option. Y
 Photo-z plots
 -------------
 
-
+Work in progress
    
 
 
